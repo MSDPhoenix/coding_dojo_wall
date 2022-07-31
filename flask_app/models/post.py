@@ -4,7 +4,7 @@ import re
 from flask_app import app
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
-db = 'coding_dojo-wall'
+db = 'coding_dojo_wall'
 
 class Post:
     def __init__(self,data):
