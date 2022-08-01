@@ -1,10 +1,10 @@
 *{
     /* outline:red 1px dotted; */
 }
-input, textarea  {
+input, textarea, .delete  {
     border: 2px black solid;
 }
-input[type='submit']{
+input[type='submit'], .delete {
     box-shadow: 5px 5px 5px black;
 }
 #all_posts {

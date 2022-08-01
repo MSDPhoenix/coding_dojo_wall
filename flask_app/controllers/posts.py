@@ -10,11 +10,7 @@ bcrypt = Bcrypt(app)
 @app.route('/wall/')
 def wall():
     if 'user_id' not in session:
-        print("A")
-        print("user_id not in session")
         return redirect('/')
-    print("A")
-    print("user_id = ",session['user_id'])
     data = {
         'user_id':session['user_id']
         }
@@ -24,6 +20,8 @@ def wall():
 
 @app.route('/post/',methods=['POST'])
 def post():
+    if 'user_id' not in session:
+        return redirect('/')
     if not Post.validate(request.form):
         return redirect('/wall/')
     data = {
@@ -31,4 +29,12 @@ def post():
         'user_id' : session['user_id']
     }
     Post.save(data)
+    return redirect('/wall/')
+
+@app.route('/delete_post/<int:post_id>/')
+def delete_post(post_id):
+    if 'user_id' not in session:
+        return redirect('/')
+    else:
+        Post.delete({'post_id':post_id})
     return redirect('/wall/')

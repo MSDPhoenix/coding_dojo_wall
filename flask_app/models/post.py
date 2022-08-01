@@ -3,7 +3,7 @@ from flask import flash
 import re
 from flask_app import app
 from flask_bcrypt import Bcrypt
-from flask_app.models import user
+from flask_app.models import user,comment
 bcrypt = Bcrypt(app)
 db = 'coding_dojo_wall'
 
@@ -39,8 +39,10 @@ class Post:
         for row in result:
             post = Post(row)
             post.creator = user.User.get_by_id(row)
-            # comment_data =  
-            # post.comments = comment.Comment.get_comments_for_post()
+            comment_data =  {
+                'post_id':row['id']
+                }
+            post.comments = comment.Comment.get_comments_for_post(comment_data)
             posts.append(post)
         return posts
 
@@ -64,13 +66,13 @@ class Post:
     #     xxxx = xxxx
     #     return xxxx
 
-    # @classmethod
-    # def delete(cls,data):
-    #     query = '''
-    #             DELETE * FROM users
-    #             WHERE id=%(user_id)s;
-    #             '''
-    #     return connectToMySQL(db).query_db(query,data)
+    @classmethod
+    def delete(cls,data):
+        query = '''
+                DELETE FROM posts
+                WHERE id=%(post_id)s;
+                '''
+        return connectToMySQL(db).query_db(query,data)
 
     @staticmethod
     def validate(data):
