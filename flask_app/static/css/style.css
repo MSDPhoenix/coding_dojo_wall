@@ -1,9 +1,13 @@
 *{
     /* outline:red 1px dotted; */
 }
-input {
+input, textarea  {
     border: 2px black solid;
 }
 input[type='submit']{
     box-shadow: 5px 5px 5px black;
+}
+#all_posts {
+    height:700px;
+    overflow: scroll;
 }
