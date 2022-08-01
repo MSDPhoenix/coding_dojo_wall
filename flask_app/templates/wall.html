@@ -4,7 +4,7 @@
 <div class="row fs-4">
     <div class="col p-5 border-bottom border-dark">
         <form action="/post/" class="" method="post">
-            <label for="post" class="mb-5 d-block">What's on your mind? Create a new post:</label>
+            <label for="post" class="mb-3 d-block">What's on your mind? Create a new post:</label>
             {% with messages = get_flashed_messages(category_filter=['post']) %}
                 {% if messages %}
                     <div class="errors text-danger p-2">
@@ -22,10 +22,10 @@
     </div>
 </div>
 <h2 class="my-5">All Community Posts</h2>
-<div id="all_posts" class="bg-info mb-5 px-3 fs-4">
-    
+<div id="all_posts" class="mb-5 px-3 fs-4">
+
     {% for post in posts %}
-        <h4>{{post.creator.first_name}} {{post.creator.last_name}} - {{post.created_at}}</h4>
+        <h4>{{post.creator.first_name}} {{post.creator.last_name}} - {{post.created_at.strftime('%B %-m')}}</h4>
         <div id="post" class="px-5 pt-2 pb-5">{{post.content}}</div>
     {% endfor %}
 
