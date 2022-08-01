@@ -1,3 +1,9 @@
 *{
     /* outline:red 1px dotted; */
 }
+input {
+    border: 2px black solid;
+}
+input[type='submit']{
+    box-shadow: 5px 5px 5px black;
+}

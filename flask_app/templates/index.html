@@ -61,14 +61,23 @@
             </div>
             <div class="col col-6 p-5 ">
                 <h1>Login</h1>
-                <form action="/login/" class="fs-4">
+                {% with messages = get_flashed_messages(category_filter=['login']) %}
+                    {% if messages %}
+                        <div class="errors text-danger p-2">
+                            {% for message in messages %}
+                                <p class="mx-0 my-1">{{message}}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <form action="/login/" class="fs-4" method="post">
                     <div class="d-flex align-items-center justify-content-between py-3">
                         <label for="email" class="col col-5">Email</label>
-                        <input type="text" name="email" class="p-2 col col7">
+                        <input type="text" name="email" class="p-2 col col7" value="{{session['email']}}">
                     </div>
                     <div class="d-flex align-items-center justify-content-between py-3">
                         <label for="password" class="col col-5">Password</label>
-                        <input type="text" name="password" class="p-2 col col7">
+                        <input type="password" name="password" class="p-2 col col7"  value="{{session['password']}}">
                     </div>
                     <div class="d-flex align-items-center justify-content-end py-3">
                         <input type="submit" class="p-2 col col-3">

@@ -13,6 +13,12 @@ def index():
 
 @app.route('/wall/')
 def wall():
+    if 'user_id' not in session:
+        print("A")
+        print("user_id not in session")
+        return redirect('/')
+    print("A")
+    print("user_id = ",session['user_id'])
     data = {
         'user_id':session['user_id']
         }
@@ -37,6 +43,25 @@ def register():
         'password' : password_hash
     }
     session['user_id'] = User.save(data)
+    return redirect('/wall/')
+
+@app.route('/login/',methods=['POST'])
+def login():
+    data = {
+        'email' : request.form['email']
+    }
+    user_in_db = User.get_by_email(data)
+    if not user_in_db:
+        flash('Invalid email/password','login')
+        session['email']=request.form['email']
+        session['password']=request.form['password']
+        return redirect('/')
+    if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
+        flash('Invalid email/password','login')
+        session['email']=request.form['email']
+        session['password']=request.form['password']
+        return redirect('/')
+    session['user_id'] = user_in_db.id
     return redirect('/wall/')
 
 @app.route('/logout/')
